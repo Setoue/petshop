@@ -26,4 +26,23 @@ public class AddressService {
     public Address create(Address address){
         return addressRepository.save(address);
     }
+
+    public Address update(Long id, Address address){
+        Optional<Address> existingAddress = addressRepository.findById(id);
+        if(existingAddress.isPresent()){
+            Address updatedAddress = existingAddress.get();
+            updatedAddress.setStreet(address.getStreet());
+            updatedAddress.setCity(address.getCity());
+            updatedAddress.setState(address.getState());
+            updatedAddress.setZipCode(address.getZipCode());
+
+            return addressRepository.save(updatedAddress);
+        }else {
+          return null;
+        }
+    }
+
+    public void delete(Long id){
+        addressRepository.deleteById(id);
+    }
 }

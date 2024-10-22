@@ -3,7 +3,6 @@ package com.shigeru.petshop.resouces;
 import com.shigeru.petshop.entities.Address;
 import com.shigeru.petshop.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +30,23 @@ public class AddressResource {
     @PostMapping
     public ResponseEntity<Address> create(@RequestBody Address address){
         Address obj = addressService.create(address);
-        return ResponseEntity.ok().body(address);
+        return ResponseEntity.ok().body(obj);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Address> update(@PathVariable Long id, @RequestBody Address address){
+        Address updateAddress = addressService.update(id, address);
+        if(updateAddress != null){
+            return ResponseEntity.ok().body(updateAddress);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<List<Address>> delete(@PathVariable Long id){
+        addressService.delete(id);
+        List<Address> list = addressService.findAll();
+        return ResponseEntity.ok().body(list);
+    }
 
 }
