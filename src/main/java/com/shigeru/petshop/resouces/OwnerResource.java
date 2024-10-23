@@ -1,5 +1,6 @@
 package com.shigeru.petshop.resouces;
 
+import com.shigeru.petshop.entities.Address;
 import com.shigeru.petshop.entities.Owner;
 import com.shigeru.petshop.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/owners")

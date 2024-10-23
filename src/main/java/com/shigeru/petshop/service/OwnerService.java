@@ -1,6 +1,8 @@
 package com.shigeru.petshop.service;
 
+import com.shigeru.petshop.entities.Address;
 import com.shigeru.petshop.entities.Owner;
+import com.shigeru.petshop.repositories.AddressRepository;
 import com.shigeru.petshop.repositories.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,9 @@ public class OwnerService {
     @Autowired
     private OwnerRepository ownerRepository;
 
+    @Autowired
+    private AddressRepository addressRepository;
+
     public List<Owner> findAll(){
         return ownerRepository.findAll();
     }
@@ -24,6 +29,10 @@ public class OwnerService {
     }
 
     public void create(Owner owner){
+        if (owner.getAddress() != null) {
+            Address address = owner.getAddress();
+                address.setOwner(owner);
+        }
         ownerRepository.save(owner);
     }
 
@@ -33,11 +42,10 @@ public class OwnerService {
             return null;
         }
         Owner updatedOwner = existingOwner.get();
-        updatedOwner.setAddress(owner.getAddress());
         updatedOwner.setName(owner.getName());
         updatedOwner.setEmail(owner.getEmail());
         updatedOwner.setPhoneNumber(owner.getPhoneNumber());
-
+        updatedOwner.setAddress(owner.getAddress());
         return ownerRepository.save(updatedOwner);
     }
 

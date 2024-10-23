@@ -1,5 +1,7 @@
 package com.shigeru.petshop.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -20,9 +22,15 @@ public class Address implements Serializable {
     private String state;
     private String zipCode;
 
+    @OneToOne
+    @MapsId
+    @JsonIgnore
+    private Owner owner;
+
     public Address(){}
 
     public Address(Long id, String street, String city, String state, String zipCode){
+        super();
         this.id = id;
         this.street = street;
         this.city = city;
@@ -68,6 +76,14 @@ public class Address implements Serializable {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 
     @Override

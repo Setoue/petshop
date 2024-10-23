@@ -1,9 +1,13 @@
 package com.shigeru.petshop.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_owner")
@@ -18,17 +22,18 @@ public class Owner implements Serializable {
     private String name;
     private String phoneNumber;
     private String email;
-    //Entidade endereço vinculado ao dono
-    private String address;
+
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL)
+    private Address address;
 
     public Owner(){}
 
-    public Owner(Long id, String name, String phoneNumber, String email, String address){
+    public Owner(Long id, String name, String phoneNumber, String email, Address address){
+        super();
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        //Entidade endereço vinculado ao dono
         this.address = address;
     }
 
@@ -64,11 +69,11 @@ public class Owner implements Serializable {
         this.email = email;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
