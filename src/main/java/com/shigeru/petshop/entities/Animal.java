@@ -3,6 +3,7 @@ package com.shigeru.petshop.entities;
 import com.shigeru.petshop.entities.enums.TypeBreed;
 import jakarta.persistence.*;
 
+import java.beans.ConstructorProperties;
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -18,26 +19,22 @@ public class Animal implements Serializable {
     private Long id;
     private String name;
     private int age;
-    private TypeBreed typeBreed;
+    private Integer typeBreed;
 
     // relacionamento com o dono
 
-    public Animal(){};
+    public Animal(){}
 
     public Animal(Long id, String name, int age, TypeBreed typeBreed){
         this.id = id;
         this.name = name;
         this.age = age;
-        setTypeAnimal(typeBreed);
+        setTypeBreed(typeBreed);
         //relacionameno com dono
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -56,12 +53,14 @@ public class Animal implements Serializable {
         this.age = age;
     }
 
-    public TypeBreed getTypeAnimal() {
-        return typeBreed;
+    public TypeBreed getTypeBreed() {
+        return TypeBreed.valueOf(typeBreed);
     }
 
-    public void setTypeAnimal(TypeBreed typeBreed) {
-        this.typeBreed = typeBreed;
+    public void setTypeBreed(TypeBreed typeBreed) {
+        if(typeBreed != null){
+            this.typeBreed = typeBreed.getCode();
+        }
     }
 
     @Override

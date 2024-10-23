@@ -18,26 +18,26 @@ public class AddressResource {
     @GetMapping
     public ResponseEntity<List<Address>> findAll(){
         List<Address> list = addressService.findAll();
-        return ResponseEntity.ok().body(list);
+        return ResponseEntity.status(201).body(list);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Address> findById(@PathVariable Long id){
         Address address = addressService.findById(id);
-        return ResponseEntity.ok().body(address);
+        return ResponseEntity.status(201).body(address);
     }
 
     @PostMapping
-    public ResponseEntity<Address> create(@RequestBody Address address){
-        Address obj = addressService.create(address);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<Void> create(@RequestBody Address address){
+        addressService.create(address);
+        return ResponseEntity.status(201).build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Address> update(@PathVariable Long id, @RequestBody Address address){
         Address updateAddress = addressService.update(id, address);
         if(updateAddress != null){
-            return ResponseEntity.ok().body(updateAddress);
+            return ResponseEntity.status(201).body(updateAddress);
         }
         return ResponseEntity.notFound().build();
     }
@@ -46,7 +46,7 @@ public class AddressResource {
     public ResponseEntity<List<Address>> delete(@PathVariable Long id){
         addressService.delete(id);
         List<Address> list = addressService.findAll();
-        return ResponseEntity.ok().body(list);
+        return ResponseEntity.status(201).body(list);
     }
 
 }
