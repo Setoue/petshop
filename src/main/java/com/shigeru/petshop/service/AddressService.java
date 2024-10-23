@@ -23,8 +23,8 @@ public class AddressService {
         return address.get();
     }
 
-    public Address create(Address address){
-        return addressRepository.save(address);
+    public void create(Address address){
+        addressRepository.save(address);
     }
 
     public Address update(Long id, Address address){
