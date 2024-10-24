@@ -26,6 +26,9 @@ public class Owner implements Serializable {
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL)
     private Address address;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "ownerAnimal", cascade = CascadeType.ALL)
+    private List<Animal> animals;
+
     public Owner(){}
 
     public Owner(Long id, String name, String phoneNumber, String email, Address address){
@@ -75,6 +78,10 @@ public class Owner implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public List<Animal> getAnimals() {
+        return animals;
     }
 
     @Override

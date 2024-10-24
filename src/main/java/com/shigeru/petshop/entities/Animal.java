@@ -1,9 +1,9 @@
 package com.shigeru.petshop.entities;
 
-import com.shigeru.petshop.entities.enums.TypeBreed;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.shigeru.petshop.entities.enums.TypeAnimal;
 import jakarta.persistence.*;
 
-import java.beans.ConstructorProperties;
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -19,18 +19,22 @@ public class Animal implements Serializable {
     private Long id;
     private String name;
     private int age;
-    private Integer typeBreed;
+    private Integer typeAnimal;
+    private String breed;
 
-    // relacionamento com o dono
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private Owner ownerAnimal;
 
     public Animal(){}
 
-    public Animal(Long id, String name, int age, TypeBreed typeBreed){
+    public Animal(Long id, String name, int age, TypeAnimal typeAnimal, String breed){
         this.id = id;
         this.name = name;
         this.age = age;
-        setTypeBreed(typeBreed);
-        //relacionameno com dono
+        setTypeAnimal(typeAnimal);
+        this.breed = breed;
     }
 
     public Long getId() {
@@ -53,14 +57,31 @@ public class Animal implements Serializable {
         this.age = age;
     }
 
-    public TypeBreed getTypeBreed() {
-        return TypeBreed.valueOf(typeBreed);
+    public TypeAnimal getTypeAnimal() {
+        return TypeAnimal.valueOf(typeAnimal);
     }
 
-    public void setTypeBreed(TypeBreed typeBreed) {
-        if(typeBreed != null){
-            this.typeBreed = typeBreed.getCode();
+    public void setTypeAnimal(TypeAnimal typeAnimal) {
+        if(typeAnimal != null){
+            this.typeAnimal = typeAnimal.getCode();
         }
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
+    public void setBreed(String breed) {
+        this.breed = breed;
+    }
+
+    @JsonIgnore
+    public Owner getOwner() {
+        return ownerAnimal;
+    }
+
+    public void setOwner(Owner ownerAnimal) {
+        this.ownerAnimal = ownerAnimal;
     }
 
     @Override

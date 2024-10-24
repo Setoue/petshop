@@ -36,8 +36,9 @@ public class AnimalService {
 
         Animal updatedAnimal = existingAnimal.get();
         updatedAnimal.setName(animal.getName());
-        updatedAnimal.setTypeBreed(animal.getTypeBreed());
+        updatedAnimal.setTypeAnimal(animal.getTypeAnimal());
         updatedAnimal.setAge(animal.getAge());
+        updatedAnimal.setBreed(animal.getBreed());
 
         return animalRepository.save(updatedAnimal);
     }

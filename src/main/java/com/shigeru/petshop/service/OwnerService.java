@@ -1,6 +1,7 @@
 package com.shigeru.petshop.service;
 
 import com.shigeru.petshop.entities.Address;
+import com.shigeru.petshop.entities.Animal;
 import com.shigeru.petshop.entities.Owner;
 import com.shigeru.petshop.repositories.AddressRepository;
 import com.shigeru.petshop.repositories.OwnerRepository;
@@ -31,7 +32,13 @@ public class OwnerService {
     public void create(Owner owner){
         if (owner.getAddress() != null) {
             Address address = owner.getAddress();
-                address.setOwner(owner);
+            address.setOwner(owner);
+        }
+
+        if(owner.getAnimals() != null){
+            for(Animal animal: owner.getAnimals()){
+                animal.setOwner(owner);
+            }
         }
         ownerRepository.save(owner);
     }
