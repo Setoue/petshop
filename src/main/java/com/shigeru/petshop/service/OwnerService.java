@@ -4,6 +4,7 @@ import com.shigeru.petshop.entities.Address;
 import com.shigeru.petshop.entities.Animal;
 import com.shigeru.petshop.entities.Owner;
 import com.shigeru.petshop.repositories.AddressRepository;
+import com.shigeru.petshop.repositories.AnimalRepository;
 import com.shigeru.petshop.repositories.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class OwnerService {
     private OwnerRepository ownerRepository;
 
     @Autowired
-    private AddressRepository addressRepository;
+    private AnimalRepository animalRepository;
 
     public List<Owner> findAll(){
         return ownerRepository.findAll();

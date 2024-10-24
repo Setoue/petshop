@@ -27,12 +27,6 @@ public class AnimalResource {
         return ResponseEntity.status(201).body(animal);
     }
 
-    @PostMapping
-    public ResponseEntity<Void> create(@RequestBody Animal animal){
-        animalService.create(animal);
-        return ResponseEntity.status(201).build();
-    }
-
     @PutMapping(value = "/{id}")
     public ResponseEntity<Animal> update(@PathVariable Long id, @RequestBody Animal animal){
         Animal obj = animalService.update(id, animal);
